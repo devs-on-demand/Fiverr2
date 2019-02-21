@@ -16,6 +16,18 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+Route::prefix('admin')->group(function(){
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+
+    // Password reset routes
+    Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset');
+    Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+    
+});

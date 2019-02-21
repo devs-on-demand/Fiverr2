@@ -109,7 +109,7 @@ return [
         'admin' => [
             'provider' => 'admin',
             'table' => 'password_resets',
-            'expire' => 30,
+            'expire' => 60,
         ],
     ],
 
