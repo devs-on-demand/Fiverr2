@@ -22,6 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test',function(){
     return view('Test.test');
 });
+Route::get('/frontend',function(){
+    return view('layouts.master');
+});
+Route::post('/saveform','FormController@saveForm')->name('saveform');
+// Test Routes End
 
 Route::get('user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::prefix('admin')->group(function(){
