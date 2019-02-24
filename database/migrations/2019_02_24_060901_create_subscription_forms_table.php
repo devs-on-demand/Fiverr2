@@ -20,7 +20,7 @@ class CreateSubscriptionFormsTable extends Migration
             $table->string('description',400);
             $table->unsignedInteger('admin_id');
             $table->unsignedInteger('event_id');
-            $table->string('JSONString',400);
+            $table->longText('JSONString');
             $table->timestamps();
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->foreign('event_id')->references('id')->on('events');

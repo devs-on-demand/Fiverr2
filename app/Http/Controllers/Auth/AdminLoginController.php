@@ -31,6 +31,8 @@ class AdminLoginController extends Controller
         {
             // if succesfull, then redirect to intended location
             return redirect()->intended(route('admin.dashboard'));
+            $user = \App\Admin::where('email',$request->email)->select('id')->first();
+            Auth::user()->setAttribute('id',$user->id);
         }
         else
         {

@@ -23,4 +23,10 @@ class FormController extends Controller
 
         return "Details Saved";
     }
+
+    public function getFormDetails(Request $req){
+        $event_id = $req['event_id'];
+        $form = \App\SubscriptionForms::where('event_id',$event_id)->first();
+        return $form;
+    }
 }
