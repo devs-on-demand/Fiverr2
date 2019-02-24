@@ -19,8 +19,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Test Routes
-Route::get('/test',function(){
+Route::get('/subscriptionbeta',function(){
     return view('Test.test');
+})->name('subscriptionbeta');
+Route::get('/render',function(){
+    return view('Test.render');
 });
 Route::get('/frontend',function(){
     return view('layouts.master');

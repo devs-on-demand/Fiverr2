@@ -1,6 +1,4 @@
 [
-	"title":"This is the form Title", //Done
-	"Description":"This is the form description",
 	{
 		"question":"First Name", //Done
 		"description":"Enter Your Name here",

@@ -18,12 +18,21 @@
                 <div class="col-sm-12">
                     <h3>Click to Add a field</h3>
                     <small>Note : Please don't refresh the page before you submit, else you will lose the information entered</small><br><br>
-
                     <form id="create_form">
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-6 form-group">
+                                <label for="id_event_id">Select Event</label>
+                                <select class="form-control" id="id_event_id">
+                                    @foreach($events= \App\Events::all() as $event)
+                                        <option value="{{$event->id}}">{{$event->event_name}}</option>
+                                    @endforeach
+                                </select><br>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-offset-2 col-sm-8 form-group">
                                 <label for="id_form_title">Form Title</label>
-                                <input type="text" class="form-control form-properties" name="form_title" id="id_form_title" value="UNTITLED FORM">
+                                <input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder="ENTER FORM TITLE">
                             </div>
                         </div>
                         <div class="row">
@@ -195,7 +204,7 @@
                         alert(data);
                     },
                     error:function(){
-                        alert('not good')
+                        alert('not good');
                     }
                 });
             });           
