@@ -1,0 +1,20 @@
+[
+	"title":"This is the form Title", //Done
+	"Description":"This is the form description",
+	{
+		"question":"First Name", //Done
+		"description":"Enter Your Name here",
+		"type":"text", //default
+		"name":"first_name",
+		"id":"id_first_name",
+		"class":"form-control",
+		"validate":"",//Done
+		"custom_error_text":"Name Entered is wrong",
+		"minlength":"",
+		"maxlength":"",
+		"required":"true",//Done
+		"validation_type":"", //Done
+		"equalTo":""
+	}
+]
+
