@@ -19,9 +19,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Test Routes
-Route::get('/test',function(){
+Route::get('/subscriptionbeta',function(){
     return view('Test.test');
+})->name('subscriptionbeta');
+Route::get('/render',function(){
+    return view('Test.render');
 });
+Route::get('/frontend',function(){
+    return view('layouts.master');
+});
+Route::post('/saveform','FormController@saveForm')->name('saveform');
+// Test Routes End
 
 Route::get('user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::prefix('admin')->group(function(){
