@@ -1,0 +1,12 @@
+{
+    "shortAnswer": 
+    {
+        "validation": "",
+        "description": "",
+        "required": "",
+        "validation_type": "",
+        "minlength": "",
+        "maxlength": "",
+        "custom_error_message": ""
+    }
+}
