@@ -15,15 +15,10 @@ class CreateSubscriptionFormsTable extends Migration
     {
         Schema::create('subscription_forms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('form_name',50);
-            $table->string('title',20);
-            $table->string('description',400);
             $table->unsignedInteger('admin_id');
-            $table->unsignedInteger('event_id');
             $table->longText('JSONString');
             $table->timestamps();
             $table->foreign('admin_id')->references('id')->on('admins');
-            $table->foreign('event_id')->references('id')->on('events');
         });
     }
 
