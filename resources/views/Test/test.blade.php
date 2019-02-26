@@ -1,19 +1,15 @@
-<html>
-    <head>
+@extends('layouts.master')
+
+@section('css')
+@parent
         <title>This is Test</title>
-        <meta charset="utf-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/sweetalert.min.css">
         <!-- jQuery library -->
         <script src="/js/jquery.min.js"></script>
         <script src="/js/sweetalert.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container" id="main-container">
+@endsection
+
+@section('main')
             <div class="row">
                 <div class="col-sm-12">
                     <h3>Click to Add a field</h3>
@@ -169,14 +165,18 @@
                         </div>
                     </form>
                 </div>
-            </iv>
-        </div>
-    </body>
+            </div>
+        
+@endsection
 
+@section('js')
+@parent
     <!-- Form Creation JavaScript - /public/js/SubscriptionFormJS/main.js-->
     <script src="/js/SubscriptionFormJS/main.js"></script>
-    <script>
+@endsection
 
+@section('scripts')
+    <script>
             $("#id_submit").on('click',function(){
                 
                 var jsonStr = JSON.stringify(form);
@@ -196,8 +196,6 @@
                         alert('not good');
                     }
                 });
-        
-        
             });  
     </script>
-</html>
+@endsection
