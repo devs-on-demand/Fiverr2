@@ -31,15 +31,24 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-offset-2 col-sm-8 form-group">
-                                <label for="id_form_title">Form Title</label>
-                                <input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder="ENTER FORM TITLE">
+                                <div id="intermediate_form">
+                                     <label for="id_form_title">Form</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-offset-2 col-sm-8 form-group">
-                                <label for="id_form_description">Form Desription</label>
-                                <textarea rows="3" class="form-control form-properties" id="id_form_description" name="form_description"></textarea>
-                            </div>
+                        <div class="form_title">
+                                <div class="row">
+                                        <div class="col-sm-offset-2 col-sm-8 form-group">
+                                            <label for="id_form_title">Form Title</label>
+                                            <input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder="ENTER FORM TITLE">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-offset-2 col-sm-8 form-group">
+                                            <label for="id_form_description">Form Desription</label>
+                                            <textarea rows="3" class="form-control form-properties" id="id_form_description" name="form_description"></textarea>
+                                        </div>
+                                    </div>
                         </div>
 
                         <br><br>
@@ -52,26 +61,58 @@
                             <div class="col-sm-3 form-group">
                                 <label for="id_answer_type">Select Answer Type</label>
                                 <select name="answer_type" id="id_answer_type" class="form-control form-properties">
-                                    <option>Short Answer</option>
-                                    <option>Multiple Choice</option>
-                                    <option>Checkbox</option>
-                                    <option>Drop Down</option>
+                                    <option value="text">Short Answer</option>
+                                    <option value="radio">Multiple Choice</option>
+                                    <option value="checkbox">Checkbox</option>
+                                    <option value="drop">Drop Down</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="row" id="id_short-answer">
+                        <div class="row short_answer" id="id_short-answer">
                             <div class="col-sm-offset-2 col-sm-5 form-group">
                                 <label for="id_short-answer">Sample Answer Field</label>
                                 <input class="form-control form-properties" type="text" name="short_answer" id="id_short-answer" placeholder="Sample Answer Field">
                             </div>
-                            <div class="col-sm-3 form-group">
+                            <div class="col-sm-3 form-group ">
                                 <label for="id_validation">Response Validation</label>
                                 <select name="validation" class="form-control form-properties" id="id_validation">
                                     <option value="true">Yes</option>
                                     <option value="false" selected="selected">No</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <div class="row single_choice" id="id_short-answer">
+                            <div class="col-sm-offset-2 col-sm-5 form-group">
+                                <label for="id_question">Choices :</label>
+                                <div>
+                                    <ol class="choices">
+                                        <li><input class="form-control choice-properties" type="text" name="choices" id="id_choice0" placeholder="Choice"></li>
+                                    </ol>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-offset-1 col-sm-8">
+                                        <button class="btn btn-primary" id="id_moreChoice">ADD MORE CHOICES</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row multi-choice" id="id_short-answer">
+                                <div class="col-sm-offset-2 col-sm-5 form-group">
+                                    <label for="id_question">Options :</label>
+                                    <div>
+                                        <ol class="options">
+                                            <li><input class="form-control option-properties" type="text" name="0" id="0" placeholder="Option"></li>
+                                        </ol>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-offset-1 col-sm-8">
+                                            <button class="btn btn-primary" id="id_moreOption">ADD MORE OPTIONS</button>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
 
                         <div class="row validation-group" id="id_input_desc">
@@ -128,92 +169,10 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </iv>
         </div>
     </body>
-    <script>
-        $(document).ready(function(){
-            //Defaults
-            $('.validation-group').hide();
 
-
-            $("#id_validation").on('change',function(){
-                var flag = $(this).val();
-                if(flag=="true")
-                {
-                    $('.validation-group').show();
-                }
-                else
-                {
-                    $('.validation-group').hide();
-                }
-            });
-
-
-            // JSON Object Creation
-            JSONArr = [];
-            TEMPObj = {};
-            var question_id = Math.floor(Math.random()*1000+4);
-
-            $(".form-properties").on("change",function(){
-                if($(this).attr('name')=='question')
-                {
-                    TEMPObj['question'] = $(this).val();
-                    TEMPObj['name'] = "question"+question_id;
-                    TEMPObj['id'] = "id_question"+question_id;
-                }
-                else if($(this).attr('name')=='validation')
-                {
-                    TEMPObj['validation'] = $(this).val();
-                }
-                else if($(this).attr('name')=='required')
-                {
-                    TEMPObj['required'] = $(this).val();
-                }
-                else if($(this).attr('name')=='validation_type' || $(this).attr('name')=='minlength' || $(this).attr('name')=='maxlength' || $(this).attr('name') == 'description')
-                {
-                    TEMPObj[$(this).attr('name')] = $(this).val(); 
-                }
-                else if($(this).attr('name') == 'custom_error_message')
-                {
-                    TEMPObj['custom_error_message'] = $(this).val();
-                }
-            });
-
-            $("#id_done").on('click',function(){
-                JSONArr.push(TEMPObj); 
-                console.log(JSONArr);
-                $(".form-properties").val("");
-                TEMPObj = {};
-            });
-
-            $("#id_submit").on('click',function(){
-                var jsonStr = JSON.stringify(JSONArr);
-                var title = $("#id_form_title").val();
-                var desc = $("#id_form_description").val();
-
-                $.ajax({
-                    method:"POST",
-                    url:"{{route('saveform')}}",
-                    data:{
-                        '_token':'{{csrf_token()}}',
-                        'Obj':jsonStr,
-                        'form_title':title,
-                        'form_description':desc
-                    },
-                    success:function(data){
-                        alert(data);
-                    },
-                    error:function(){
-                        alert('not good');
-                    }
-                });
-            });           
-
-            $("#create_form").on('submit',function(e){
-                e.preventDefault();
-            });
-
-        });
-    </script>
+    <!-- Form Creation JavaScript - /public/js/SubscriptionFormJS/main.js-->
+    <script src="/js/SubscriptionFormJS/main.js"></script>
 </html>
