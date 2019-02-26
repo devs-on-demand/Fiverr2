@@ -29,7 +29,7 @@ Route::get('/frontend',function(){
     return view('layouts.master');
 });
 Route::post('/saveform','FormController@saveForm')->name('saveform');
-Route::post('/getData','FormController@getFormDetails')->name('getFormDetails');
+Route::get('/getData','FormController@getFormDetails')->name('getFormDetails');
 // Test Routes End
 
 Route::get('user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
