@@ -8,12 +8,13 @@ class FormController extends Controller
 {
     
     public function saveForm(){
-    
+        $event_id = $_POST['event_id'];
         $json = $_POST['Obj'];
 
         $subscribe = new \App\SubscriptionForms();
         $subscribe->admin_id = 1;
         $subscribe->JSONString = $json;
+        $subscribe->event_id = $event_id;
         $subscribe->save();
 
         return "Details Saved";

@@ -2,66 +2,45 @@ $(document).ready(function(){
     //Defaults
     var $choices = 0;
     var $options = 0;
-    var choices_array = [];
     var choice_id = "id_choice";
+    var option_id= "id_option";
     $('.validation-group').hide();
     $('#intermediate_form').hide();
     $('.multi-choice').hide();
     $('.single_choice').hide();
 
-    function pushChoices( choice_array, choice_number)
+    var temp='{\"eventId\":\"1\",\"title\":\"\",\"description\":\"\",\"attributes\":[{\"question\":\"Favorite Color\",\"name\":\"question30\",\"id\":\"id_question30\",\"type\":{\"option\":[\"Orange\",\"Red\",\"Blue\"]}},{\"question\":\"Favorite Color\",\"name\":\"question30\",\"id\":\"id_question30\",\"type\":{\"option\":[\"Orange\",\"Red\",\"Blue\"]}},{\"question\":\"Favorite Color\",\"name\":\"question30\",\"id\":\"id_question30\",\"type\":{\"option\":[\"Orange\",\"Red\",\"Blue\"]}}]}';
+
+    $format=JSON.parse(temp);
+
+    console.log($format);
+
+    function pushChoices( choice_array ,choice_number)
     {
-        var final_choice = "";
-        var actual_choice_number = choice_number-1;
-        final_choice = choice_id+""+actual_choice_number;
-        choice_array.push($("#"+final_choice).val());
+        choice_array.push($("#"+choice_id+""+choice_number).val());
+        console.log(choiceArr.choice);
+    }
+
+    function pushOptions( option_array ,option_number)
+    {
+        option_array.push($("#"+option_id+""+option_number).val());
+        console.log(optionArr.option);
     }
 
     $('#id_moreChoice').on('click', function ()
     {
+        pushChoices(choiceArr.choice,$choices);
         $choices=$choices+1;
-        pushChoices(choices_array,$choices);
-        final_choice_id=choice_id+""+$choices;
-        var optionField ='<li><input class="form-control choice-properties" type="text" name="'+$choices+'" id="'+final_choice_id+'" placeholder="Choice"></li>';
-        choiceArr.choice[choiceArr.choice.length]="";
+        var optionField ='<li class="alternate"><input class="form-control choiceProperties" type="text" name="'+$choices+'" id="'+choice_id+$choices+'" placeholder="Choice"></li>';
         $('.choices').append(optionField);
-        console.log(choices_array);
     });
-
     
-    $(".choice-properties").on("change",function()
-    {
-        for(var index=0;index<=$choices;index++)
-        {
-            if($(this).attr('name')==index)
-            {
-                choiceArr.choice[index] = $(this).val();
-                alert($(this).attr('name'));
-            }
-        }
-            console.log(choiceArr);
-    });
-
-    $(".option-properties").on("change",function()
-    {
-        for(var index=0;index<=$options;index++)
-        {
-            console.log(optionArr);
-            if($(this).attr('name')==index)
-            {
-                optionArr.option[$(this).attr('name')] = $(this).val();
-                alert($(this).attr('name'));
-            }
-        }
-            console.log(optionArr);
-        
-    });
 
     $('#id_moreOption').on('click', function ()
     {
+        pushOptions(optionArr.option,$options);
         $options=$options+1;
-        var optionField ='<li><input class="form-control option-properties" type="text" name="'+$options+'" id="'+$options+'" placeholder="Option"></li>';
-        optionArr.option[optionArr.option.length]="";
+        var optionField ='<li class="alternate"><input class="form-control option-properties" type="text" name="'+$options+'" id="'+option_id+$options+'" placeholder="Option"></li>';
         $('.options').append(optionField);
 
     });
@@ -85,6 +64,7 @@ $(document).ready(function(){
         $('.multi-choice').hide();
         $('.single_choice').hide();
 
+
         //Need to reset the previous fields in span here
         
         switch (type) {
@@ -93,14 +73,6 @@ $(document).ready(function(){
                 break;
             }
             case 'radio':{
-                if(choiceArr.choice.length==0)
-                {
-                    for(var index = 1;index<=$choices;index++)
-                    {
-                        choiceArr.choice[index]="";
-                    }
-                }
-                console.log(choiceArr);
                 $('.single_choice').show();
                 break;
             }
@@ -115,6 +87,7 @@ $(document).ready(function(){
     function generateForm(formData)
     {
 
+        $('#intermediate_form').empty();
 
         var $formName='';
         var $formdesc='';
@@ -145,7 +118,7 @@ $(document).ready(function(){
                         switch (key) {
                             case 'shortAnswer':{
                                 $placeholder=value.description;  
-                                $field='<div class="row"><div class="col-sm-offset-2 col-sm-8 form-group"><label for="id_form_title">'+$fieldName+'</label><input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder='+$placeholder+'></div></div>';;                                  
+                                $field='<div class="row"><div class="col-sm-offset-2 col-sm-8 form-group"><label for="id_form_title">'+$fieldName+'</label><input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder="'+$placeholder+'"></div></div>';;                                  
                                 break;
                             }
         
@@ -192,7 +165,6 @@ $(document).ready(function(){
                 }
             
             });
-            return false;
 
         });     
         
@@ -202,6 +174,7 @@ $(document).ready(function(){
     
     // JSON Object Creation
     // Need to chnage code to refer json files
+    
     var $formObj =JSON.parse('{ "eventId" : "","title": "","description": "","attributes": []}');
 
     var $attributeObj=JSON.parse('{"question": "","name": "","id": "","type":{}}');
@@ -270,74 +243,73 @@ $(document).ready(function(){
 
     $("#id_done").on('click',function(){
 
-    
         switch ($("#id_answer_type").val()) {
             case 'text':{
                 shortAnswerObj.shortAnswer=shortAnswer;
                 attribute.type=shortAnswerObj;
-                shortAnswerObj=$shortAnswerObj;
                 break;
             }
             case 'radio':{
+                pushChoices(choiceArr.choice,$choices);
                 attribute.type=choiceArr;
                 break;
             }
             case 'checkbox':{
+                pushOptions(optionArr.option,$options);
                 attribute.type=optionArr;
                 break;
             }
         }
 
-       
-        form.attributes.push(attribute); 
+        //var tattributes = JSON.parse(""+form.attributes);
+        pushAttribute(form.attributes,attribute);
+        
+
         form.eventId=$("#id_event_id").val();
         form.title = $("#id_form_title").val();
         form.description = $("#id_form_description").val();
+
+        var $formObj=JSON.stringify(form);
          
 
         generateForm(form);
+       
+
+        resetValues();
+       
+
+    });  
+
+    function resetValues()
+    {
+        //Reseting values of entered field
         $(".form-properties").val("");
+        $(".choice-properties").val("");
+        $(".option-properties").val("");
+        
+        //Resetting the attribute
+        shortAnswerObj=$shortAnswerObj;
         shortAnswer=shortAnswerObj.shortAnswer;
-    });
+        optionArr=$optionObj;
+        choiceArr=$choiceObj;
+        attribute=$attributeObj;
 
-    $("#id_submit").on('click',function(){
+        //Removing Elements
 
-        var jsonStr = JSON.stringify(form);
+        $(".alternate").remove();
 
-        $.ajax({
-            method:"POST",
-            url:"{{route('saveform')}}",
-            data:{
-                '_token':'{{csrf_token()}}',
-                'Obj':jsonStr
-            },
-            success:function(data){
-                alert(data);
-            },
-            error:function(){
-                alert('not good');
-            }
-        });
+        //Hidding the UI
+        $('.validation-group').hide();
+        $('.short_answer').hide();
+        $('.multi-choice').hide();
+        $('.single_choice').hide();
+    }
 
-
-    });    
-
-    function getFormData(){
-
-        $.ajax({
-            method:"GET",
-            url:"{{route('getFormDetails')}}",
-            data:{
-                '_token':'{{csrf_token()}}'
-            },
-            success:function(data){
-                generateForm(data);
-            },
-            error:function(){
-                alert('not good');
-            }
-        });
-
+    function pushAttribute(array,value)
+    {
+        console.log(array);
+        array.push(JSON.parse(JSON.stringify(value)));
+        console.log(array);
 
     }
 
@@ -348,3 +320,4 @@ $(document).ready(function(){
     });
 
 });
+

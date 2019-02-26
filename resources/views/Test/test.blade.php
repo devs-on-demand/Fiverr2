@@ -31,9 +31,9 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-offset-2 col-sm-8 form-group">
-                                <div id="intermediate_form">
-                                     <label for="id_form_title">Form</label>
-                                </div>
+                                <label for="id_form_title">Form</label>
+                                <span id="intermediate_form">
+                                </span>
                             </div>
                         </div>
                         <div class="form_title">
@@ -104,7 +104,7 @@
                                     <label for="id_question">Options :</label>
                                     <div>
                                         <ol class="options">
-                                            <li><input class="form-control option-properties" type="text" name="0" id="0" placeholder="Option"></li>
+                                            <li><input class="form-control option-properties" type="text" name="0" id="id_option0" placeholder="Option"></li>
                                         </ol>
                                     </div>
                                     <div class="row">
@@ -175,4 +175,29 @@
 
     <!-- Form Creation JavaScript - /public/js/SubscriptionFormJS/main.js-->
     <script src="/js/SubscriptionFormJS/main.js"></script>
+    <script>
+
+            $("#id_submit").on('click',function(){
+                
+                var jsonStr = JSON.stringify(form);
+
+                $.ajax({
+                    method:"POST",
+                    url:"{{route('saveform')}}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'Obj':jsonStr,
+                        'event_id': $("#id_event_id").val(),
+                    },
+                    success:function(data){
+                        alert(data);
+                    },
+                    error:function(){
+                        alert('not good');
+                    }
+                });
+        
+        
+            });  
+    </script>
 </html>
