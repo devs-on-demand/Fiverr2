@@ -1,22 +1,7 @@
+@extends('layouts.master')
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/sweetalert.min.css">
-        <!-- jQuery library -->
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/sweetalert.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="/js/bootstrap.min.js"></script>
-</head>
-<body>
-	<div class="container">
-		<form>
-			<br><br><br>
-		<div class="row">
+@section('main')
+        <div class="row">
 			<div class="col-sm-offset-2 col-sm-8 form-group">
 				<select id="id_event" class="form-control">
 					@foreach($events = \App\Events::all() as $event)
@@ -29,8 +14,8 @@
 			<div class="col-sm-offset-2 col-sm-8 form-group">
 				<div>
 					 <label for="id_form_title">Form</label>
-					 <span id="intermediate_form">
-					 </span>
+					 <div id="intermediate_form">
+					 </div>
 				</div>
 			</div>
 		</div>
@@ -39,9 +24,9 @@
 				<button type="button" class="btn btn-success" id="id_viewForm">VIEW FORM</button>
 			</div>
 		</div>
-		</form>
-	</div>
-</body>
+@endsection
+
+@section('scripts')
 <script>
 		$(document).ready(function(){
 
@@ -49,7 +34,6 @@
 		{
 			
 			console.log(formData);
-			//$('#intermediate_form').empty();
 	
 			var $formName='';
 			var $formdesc='';
@@ -80,7 +64,7 @@
 							switch (key) {
 								case 'shortAnswer':{
 									$placeholder=value.description;  
-									$field='<div class="row"><div class="col-sm-offset-2 col-sm-8 form-group"><label for="id_form_title">'+$fieldName+'</label><input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder='+$placeholder+'></div></div>';;                                  
+									$field='<div class="row"><div class="col-sm-offset-2 col-sm-8 form-group"><label for="id_form_title">'+$fieldName+'</label><input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder='+$placeholder+'></div></div>';                                  
 									break;
 								}
 			
@@ -142,8 +126,8 @@
 					'event_id': $("#id_event").val()
 				},
 				success:function(data){
-					
-					form=JSON.parse(data.JSONString)
+                    $("#intermediate_form").empty();
+					form=JSON.parse(data.JSONString);
 					generateForm(form);
 				},
 				error:function(){
@@ -156,5 +140,5 @@
 
 	});
 </script>
-
-</html>
+    
+@endsection

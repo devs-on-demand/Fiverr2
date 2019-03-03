@@ -118,7 +118,7 @@ $(document).ready(function(){
                         switch (key) {
                             case 'shortAnswer':{
                                 $placeholder=value.description;  
-                                $field='<div class="row"><div class="col-sm-offset-2 col-sm-8 form-group"><label for="id_form_title">'+$fieldName+'</label><input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder="'+$placeholder+'"></div></div>';;                                  
+                                $field='<div class="row"><div class="col-sm-offset-2 col-sm-8 form-group"><label for="id_form_title">'+$fieldName+'</label><input type="text" class="form-control form-properties" name="form_title" id="id_form_title" placeholder="'+$placeholder+'"></div></div>';                                 
                                 break;
                             }
         

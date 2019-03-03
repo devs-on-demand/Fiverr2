@@ -34,6 +34,7 @@ Route::get('/getData','FormController@getFormDetails')->name('getFormDetails');
 
 Route::get('user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::prefix('admin')->group(function(){
+    
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -44,5 +45,32 @@ Route::prefix('admin')->group(function(){
     Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset');
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+
+    // Subscription Form Routes
+    Route::get('/createform',function(){
+        return view('admin.createform');
+    })->name('createform');
+    Route::get('/viewform',function(){
+        return view('admin.viewform');
+    })->name('viewform');
+
+    // Event View Routes
+    Route::get('/createevent',function(){
+        return view('admin.createevent');
+    })->name('createevent');
+    Route::get('/viewevents',function(){
+        return view('viewevent');
+    })->name('viewevents');
+
+    // Events CRUD Routes
+    Route::post('/createevent','EventController@createEvent')->name('addevent');
+    Route::get('/geteventdetails','EventController@getEventDetails')->name('geteventdetails');
     
+    // Program View Routes
+    Route::get('/createprogram',function(){
+        return view('admin.creatprogram');
+    })->name('createprogram');
+    Route::get('/viewprograms',function(){
+        return view('viewprograms');
+    })->name('viewprograms');
 });

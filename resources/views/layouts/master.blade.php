@@ -31,18 +31,27 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     @section('css')
     @show
   </head>
-    @section('style')
-    @show
+  @section('style')
+  @show
+  <style>
+    body{
+      font-family: 'Open Sans', sans-serif;
+    }
+  </style>
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Event </span></a>
+              <a href="/admin" class="site_title"><i class="fa fa-paw"></i> <span>Event </span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -76,6 +85,24 @@
                     </ul>
                   </li> -->
                   @section('sidemenu')
+                  <li><a><i class="fab fa-wpforms"></i> Subscription Forms <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('createform')}}">Create Forms</a></li>
+                      <li><a href="{{route('viewform')}}">Saved Forms</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fas fa-calendar-check"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('createevent')}}">Create Event</a></li>
+                      <li><a href="{{route('viewevents')}}">Saved Event</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fas fa-calendar-check"></i> Programs <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('createprogram')}}">Create Program</a></li>
+                      <li><a href="{{route('viewprograms')}}">Saved Program</a></li>
+                    </ul>
+                  </li>
                   @show                  
                   </li>
                 </ul>
